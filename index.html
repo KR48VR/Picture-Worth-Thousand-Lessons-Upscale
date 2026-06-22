@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wildlife Science & Math Field Atlas</title>
+  <meta name="description" content="A cinematic interactive field atlas connecting wildlife photography, science, mathematics, and engineering design." />
+  <meta name="theme-color" content="#0b100d" />
+  <link rel="stylesheet" href="styles.css" />
+  <script data-goatcounter="https://kr48vr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#modules">Skip to gallery</a>
+
+  <header class="hero" id="top">
+    <div class="hero-media" aria-hidden="true">
+      <img src="assets/images/bird_original.jpeg" alt="" />
+    </div>
+
+    <nav class="topbar" aria-label="Primary navigation">
+      <a class="brand" href="#top">
+        <span class="brand-mark">W</span>
+        <span class="brand-text"><strong>Wildlife Field Atlas</strong><small>Science, maths, design</small></span>
+      </a>
+      <div class="nav-actions">
+        <a href="#modules">Gallery</a>
+        <a href="#guide">Teacher guide</a>
+        <button id="themeToggle" class="icon-button" type="button" aria-label="Switch to dark mode">◐</button>
+      </div>
+    </nav>
+
+    <div class="hero-content wrap">
+      <p class="eyebrow">Natural history learning atlas</p>
+      <h1>Wildlife science, seen with cinematic clarity.</h1>
+      <p class="lede">Eight exhibition photographs become field studies in force, form, motion, adaptation, and engineered design.</p>
+      <div class="hero-buttons">
+        <a class="button primary" href="#modules">Enter the gallery</a>
+        <a class="button glass" href="#guide">Teacher flow</a>
+      </div>
+      <dl class="hero-facts" aria-label="Collection summary">
+        <div><dt>8</dt><dd>animal encounters</dd></div>
+        <div><dt>3</dt><dd>learning lenses</dd></div>
+        <div><dt>24</dt><dd>visual explainers</dd></div>
+      </dl>
+    </div>
+
+    <div class="hero-rail wrap" aria-label="Featured wildlife photographs">
+      <figure class="rail-item"><img src="assets/images/osprey_original.jpeg" alt="Osprey catching a fish"><figcaption>Flight</figcaption></figure>
+      <figure class="rail-item"><img src="assets/images/elephant_original.jpeg" alt="Elephant reaching upward"><figcaption>Statics</figcaption></figure>
+      <figure class="rail-item"><img src="assets/images/lemurs_original.jpeg" alt="Lemurs gathered together"><figcaption>Scaling</figcaption></figure>
+      <figure class="rail-item"><img src="assets/images/otter_original.jpeg" alt="Otter in water"><figcaption>Buoyancy</figcaption></figure>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="pathway" aria-label="Learning pathway">
+      <article class="path-step"><span>01</span><h2>Observe</h2><p>Begin with the catalogue photograph and the evidence visible in the scene.</p></article>
+      <article class="path-step"><span>02</span><h2>Decode</h2><p>Compare each image with science and maths explainers at two levels.</p></article>
+      <article class="path-step"><span>03</span><h2>Transfer</h2><p>Follow the same natural principles into engineering and design systems.</p></article>
+    </section>
+
+    <section id="modules" class="section gallery-section">
+      <div class="section-head">
+        <p class="eyebrow">Field modules</p>
+        <h2>Choose a wildlife study</h2>
+        <p>A curated sequence of animal encounters, scientific principles, mathematical models, and biomimetic design routes.</p>
+      </div>
+
+      <div class="toolbar">
+        <label class="search-wrap"><span>Find a concept</span><input id="searchInput" type="search" placeholder="friction, buoyancy, pressure, robot" /></label>
+        <div class="view-chips" role="group" aria-label="Select gallery explainer view">
+          <button class="chip active" data-tab="secondary" type="button" aria-pressed="true">Secondary</button>
+          <button class="chip" data-tab="university" type="button" aria-pressed="false">University</button>
+          <button class="chip" data-tab="engineering" type="button" aria-pressed="false">Nature → Engineering</button>
+        </div>
+      </div>
+
+      <div id="moduleGrid" class="module-grid"></div>
+      <p id="noResults" class="no-results" hidden>No modules match that search.</p>
+    </section>
+
+    <section id="viewer" class="viewer" aria-live="polite" hidden>
+      <div class="viewer-bar">
+        <button class="back-link" id="backToGallery" type="button">Back to gallery</button>
+        <div class="viewer-nav">
+          <button id="prevModule" type="button" aria-label="Previous module">←</button>
+          <button id="nextModule" type="button" aria-label="Next module">→</button>
+        </div>
+      </div>
+
+      <div class="viewer-shell">
+        <div class="viewer-main">
+          <div class="viewer-head">
+            <div>
+              <div class="module-title-row"><span id="moduleEmoji" class="module-emoji"></span><h2 id="moduleTitle"></h2></div>
+              <p id="moduleTagline" class="module-tagline"></p>
+              <p id="viewerCredit" class="viewer-credit"></p>
+            </div>
+            <div class="tab-list" role="tablist" aria-label="Learning level tabs">
+              <button class="viewer-tab active" id="tab-secondary" data-tab="secondary" role="tab" type="button" aria-selected="true">Secondary</button>
+              <button class="viewer-tab" id="tab-university" data-tab="university" role="tab" type="button" aria-selected="false">University</button>
+              <button class="viewer-tab" id="tab-engineering" data-tab="engineering" role="tab" type="button" aria-selected="false">Nature → Engineering</button>
+            </div>
+          </div>
+
+          <div class="compare-grid">
+            <figure class="compare-panel">
+              <div class="panel-label">Original exhibition photo</div>
+              <img id="originalImage" alt="" />
+              <figcaption id="originalCaption"></figcaption>
+              <div class="panel-actions">
+                <a id="downloadOriginal" class="button subtle" download>Download original</a>
+                <button id="zoomOriginal" class="button subtle" type="button">Zoom</button>
+              </div>
+            </figure>
+            <figure class="compare-panel">
+              <div class="panel-label" id="explainerPanelLabel">Secondary explainer</div>
+              <img id="explainerImage" alt="" />
+              <figcaption id="explainerCaption"></figcaption>
+              <div class="panel-actions">
+                <a id="downloadExplainer" class="button primary" download>Download current image</a>
+                <button id="zoomExplainer" class="button subtle" type="button">Zoom</button>
+              </div>
+            </figure>
+          </div>
+
+          <div class="learning-grid">
+            <div class="field-note notes-card compact-card"><h3>Key ideas</h3><ul id="notesList"></ul></div>
+            <div class="field-note prompt-card compact-card"><h3>Classroom prompts</h3><ol id="promptList"></ol></div>
+          </div>
+        </div>
+
+        <aside class="viewer-side">
+          <div class="source-card">
+            <div class="source-label">Photo provenance</div>
+            <div id="sourceCard"></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="guide" class="section guide">
+      <div class="section-head"><p class="eyebrow">Teacher guide</p><h2>Suggested lesson flow</h2></div>
+      <div class="guide-grid">
+        <article class="guide-card"><h3>5 min · Notice</h3><p>Show the original photo and ask what is happening before revealing the annotated visual.</p></article>
+        <article class="guide-card"><h3>10 min · Explain</h3><p>Compare the original and the selected explainer side by side, then identify which ideas became visible.</p></article>
+        <article class="guide-card"><h3>10 min · Transfer</h3><p>Use the Nature → Engineering mode to discuss how natural principles are translated into design.</p></article>
+        <article class="guide-card"><h3>Extension</h3><p>Invite students to build their own mini module from a new wildlife image using the same structure.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-box" role="dialog" aria-modal="true" aria-label="Image preview">
+      <button class="modal-close" type="button" data-close aria-label="Close image preview">×</button>
+      <img id="modalImage" alt="Large preview" />
+    </div>
+  </div>
+
+  <footer class="site-footer"><p>Wildlife Science & Math Field Atlas · static site package</p></footer>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
