@@ -166,11 +166,6 @@
             </figure>
           </div>
 
-          <div class="learning-grid">
-            <div class="field-note notes-card compact-card"><h3>Key ideas</h3><ul id="notesList"></ul></div>
-            <div class="field-note prompt-card compact-card"><h3>Classroom prompts</h3><ol id="promptList"></ol></div>
-          </div>
-
           <section class="math-lab" id="mathLab">
             <div class="math-lab-head">
               <div>
@@ -191,9 +186,15 @@
         </div>
 
         <aside class="viewer-side">
-          <div class="source-card">
-            <div class="source-label">Photo provenance</div>
-            <div id="sourceCard"></div>
+          <div class="side-stack">
+            <div class="source-card">
+              <div class="source-label">Photo provenance</div>
+              <div id="sourceCard"></div>
+            </div>
+            <div class="learning-grid side-learning">
+              <div class="field-note notes-card compact-card"><h3>Key ideas</h3><ul id="notesList"></ul></div>
+              <div class="field-note prompt-card compact-card"><h3>Classroom prompts</h3><ol id="promptList"></ol></div>
+            </div>
           </div>
         </aside>
       </div>
@@ -245,6 +246,8 @@
         <li><strong>Visual direction:</strong> rebuilt the interface into a cinematic natural-history field atlas with animal-forward hero imagery and tighter editorial cards.</li>
         <li><strong>Guided learning:</strong> added field episode mode: observe, decode, model, and transfer.</li>
         <li><strong>Classroom use:</strong> added full-screen presenter mode for teacher-led reveals.</li>
+        <li><strong>Layout polish:</strong> fixed presenter image fitting and moved Key Ideas plus Classroom Prompts into the detail-view teaching rail.</li>
+        <li><strong>QA correction:</strong> presenter Observe mode now uses the full original photo, and module opens reset old story state.</li>
         <li><strong>Maths interaction:</strong> added one small interactive model for every wildlife module.</li>
         <li><strong>Analytics:</strong> kept GoatCounter and added event tracking for meaningful interactions.</li>
         <li><strong>Performance:</strong> added cleaned plate crops and WebP display assets while preserving original downloads.</li>

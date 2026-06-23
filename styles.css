@@ -669,7 +669,7 @@ main{padding:0 0 64px}
 }
 .viewer-shell{
   display:grid;
-  grid-template-columns:minmax(0,1.66fr) minmax(280px,.62fr);
+  grid-template-columns:minmax(0,1.38fr) minmax(340px,.62fr);
   gap:18px;
   align-items:start;
 }
@@ -849,6 +849,17 @@ main{padding:0 0 64px}
   gap:16px;
   margin-top:16px;
 }
+.viewer-side{min-width:0}
+.side-stack{
+  position:sticky;
+  top:14px;
+  display:grid;
+  gap:16px;
+}
+.side-learning{
+  grid-template-columns:1fr;
+  margin-top:0;
+}
 .field-note{
   border:1px solid var(--line);
   border-radius:8px;
@@ -856,8 +867,6 @@ main{padding:0 0 64px}
   padding:16px;
 }
 .source-card{
-  position:sticky;
-  top:14px;
   padding:16px;
 }
 .source-label{color:var(--rust);margin-bottom:.55rem}
@@ -1077,26 +1086,30 @@ main{padding:0 0 64px}
   position:fixed;
   inset:0;
   z-index:90;
+  overflow:hidden;
   background:#050705;
   color:#fff;
-  padding:18px;
+  padding:clamp(10px,1.2vw,18px);
 }
 .presenter[hidden]{display:none}
 .presenter-stage{
   display:grid;
   grid-template-columns:minmax(0,1fr) minmax(320px,.38fr);
   gap:18px;
-  height:100%;
+  height:calc(100vh - clamp(20px,2.4vw,36px));
+  height:calc(100svh - clamp(20px,2.4vw,36px));
+  min-height:0;
 }
 .presenter-media{
-  display:grid;
-  place-items:center;
+  display:block;
+  min-height:0;
   overflow:hidden;
   border:1px solid rgba(255,255,255,.18);
   border-radius:8px;
   background:#0b100d;
 }
 .presenter-media img{
+  display:block;
   width:100%;
   height:100%;
   object-fit:contain;
@@ -1105,6 +1118,8 @@ main{padding:0 0 64px}
   display:flex;
   flex-direction:column;
   justify-content:flex-end;
+  min-height:0;
+  overflow:auto;
   border:1px solid rgba(255,255,255,.18);
   border-radius:8px;
   background:
@@ -1222,10 +1237,18 @@ main{padding:0 0 64px}
 @media (max-width:1100px){
   .hero h1{font-size:4.2rem}
   .viewer-shell{grid-template-columns:1fr}
-  .source-card{position:static}
+  .side-stack{position:static}
+  .side-learning{grid-template-columns:1fr 1fr}
   .guide-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .story-card,.presenter-stage{grid-template-columns:1fr}
-  .presenter-panel{justify-content:flex-start}
+  .story-card{grid-template-columns:1fr}
+  .presenter-stage{
+    grid-template-columns:1fr;
+    grid-template-rows:minmax(0,1fr) auto;
+  }
+  .presenter-panel{
+    justify-content:flex-start;
+    max-height:34svh;
+  }
 }
 
 @media (max-width:880px){
@@ -1238,7 +1261,7 @@ main{padding:0 0 64px}
   .hero-content{padding:64px 0 28px}
   .hero h1{font-size:3.45rem}
   .hero-rail{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .pathway,.compare-grid,.learning-grid{grid-template-columns:1fr}
+  .pathway,.compare-grid,.learning-grid,.side-learning{grid-template-columns:1fr}
   .path-step{
     border-right:0;
     border-bottom:1px solid var(--line);
@@ -1293,10 +1316,14 @@ main{padding:0 0 64px}
   .guide-grid{grid-template-columns:1fr}
   .button,.chip,.viewer-tab,.back-link{min-height:44px}
   .presenter{padding:10px}
-  .presenter-stage{gap:10px}
+  .presenter-stage{
+    gap:10px;
+    height:calc(100vh - 20px);
+    height:calc(100svh - 20px);
+  }
   .presenter-panel{padding:16px}
   .presenter-panel h2{font-size:2rem}
-  .presenter-media{min-height:42vh}
+  .presenter-media{min-height:0}
   .improvement-log{
     right:10px;
     bottom:10px;

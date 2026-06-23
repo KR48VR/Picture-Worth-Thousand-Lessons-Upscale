@@ -469,6 +469,9 @@ function openModule(idx, options = {}) {
     storyActive = true;
     currentStoryStep = options.step || 0;
     currentTab = storySteps[currentStoryStep].tab;
+  } else {
+    storyActive = false;
+    currentStoryStep = 0;
   }
   updateViewer();
   viewer.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -520,7 +523,7 @@ function exitStory() {
 
 function presenterImageFor(m) {
   if (!m) return '';
-  if (currentStoryStep === 0) return plateImage(m);
+  if (currentStoryStep === 0) return webpImage(m.images.original);
   return webpImage(m.images[storySteps[currentStoryStep].tab]);
 }
 
