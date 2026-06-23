@@ -321,8 +321,16 @@ function renderGrid(filter = '') {
     article.innerHTML = `
       <div class="cover-frame">
         <div class="thumb-stage" aria-hidden="true">
-          <img class="thumb-image" src="${escapeHtml(plateImage(m))}" alt="" loading="lazy" decoding="async">
-          <div class="thumb-gradient"></div>
+          <div class="thumb-layer thumb-base">
+            <img src="${escapeHtml(plateImage(m))}" alt="" loading="lazy" decoding="async">
+            <div class="thumb-gradient"></div>
+            <span class="thumb-badge thumb-badge-right">Original</span>
+          </div>
+          <div class="thumb-layer thumb-overlay">
+            <img src="${escapeHtml(webpImage(m.images[currentTab]))}" alt="" loading="lazy" decoding="async">
+            <div class="thumb-gradient"></div>
+            <span class="thumb-badge thumb-badge-left">${escapeHtml(tabs[currentTab].label)}</span>
+          </div>
         </div>
       </div>
       <div class="module-card-body">
