@@ -6,6 +6,15 @@
   <title>Wildlife Science & Math Field Atlas</title>
   <meta name="description" content="A cinematic interactive field atlas connecting wildlife photography, science, mathematics, and engineering design." />
   <meta name="theme-color" content="#0b100d" />
+  <meta property="og:title" content="Wildlife Science & Math Field Atlas" />
+  <meta property="og:description" content="A cinematic field atlas connecting wildlife photography, science, mathematics, and engineering design." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/social-preview.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
   <link rel="stylesheet" href="styles.css" />
   <script data-goatcounter="https://kr48vr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
@@ -14,7 +23,7 @@
 
   <header class="hero" id="top">
     <div class="hero-media" aria-hidden="true">
-      <img src="assets/images/bird_original.jpeg" alt="" />
+      <img src="assets/plates/bird_plate.webp" alt="" />
     </div>
 
     <nav class="topbar" aria-label="Primary navigation">
@@ -25,6 +34,7 @@
       <div class="nav-actions">
         <a href="#modules">Gallery</a>
         <a href="#guide">Teacher guide</a>
+        <button id="presenterToggle" type="button">Presenter</button>
         <button id="themeToggle" class="icon-button" type="button" aria-label="Switch to dark mode">◐</button>
       </div>
     </nav>
@@ -34,7 +44,8 @@
       <h1>Wildlife science, seen with cinematic clarity.</h1>
       <p class="lede">Eight exhibition photographs become field studies in force, form, motion, adaptation, and engineered design.</p>
       <div class="hero-buttons">
-        <a class="button primary" href="#modules">Enter the gallery</a>
+        <button class="button primary" id="storyStart" type="button">Begin field study</button>
+        <a class="button glass" href="#modules">Browse gallery</a>
         <a class="button glass" href="#guide">Teacher flow</a>
       </div>
       <dl class="hero-facts" aria-label="Collection summary">
@@ -45,10 +56,10 @@
     </div>
 
     <div class="hero-rail wrap" aria-label="Featured wildlife photographs">
-      <figure class="rail-item"><img src="assets/images/osprey_original.jpeg" alt="Osprey catching a fish"><figcaption>Flight</figcaption></figure>
-      <figure class="rail-item"><img src="assets/images/elephant_original.jpeg" alt="Elephant reaching upward"><figcaption>Statics</figcaption></figure>
-      <figure class="rail-item"><img src="assets/images/lemurs_original.jpeg" alt="Lemurs gathered together"><figcaption>Scaling</figcaption></figure>
-      <figure class="rail-item"><img src="assets/images/otter_original.jpeg" alt="Otter in water"><figcaption>Buoyancy</figcaption></figure>
+      <figure class="rail-item"><img src="assets/plates/osprey_plate.webp" alt="Osprey catching a fish"><figcaption>Flight</figcaption></figure>
+      <figure class="rail-item"><img src="assets/plates/elephant_plate.webp" alt="Elephant reaching upward"><figcaption>Statics</figcaption></figure>
+      <figure class="rail-item"><img src="assets/plates/lemurs_plate.webp" alt="Lemurs gathered together"><figcaption>Scaling</figcaption></figure>
+      <figure class="rail-item"><img src="assets/plates/otter_plate.webp" alt="Otter in water"><figcaption>Buoyancy</figcaption></figure>
     </div>
   </header>
 
@@ -57,6 +68,20 @@
       <article class="path-step"><span>01</span><h2>Observe</h2><p>Begin with the catalogue photograph and the evidence visible in the scene.</p></article>
       <article class="path-step"><span>02</span><h2>Decode</h2><p>Compare each image with science and maths explainers at two levels.</p></article>
       <article class="path-step"><span>03</span><h2>Transfer</h2><p>Follow the same natural principles into engineering and design systems.</p></article>
+    </section>
+
+    <section id="episode" class="section episode-section" aria-labelledby="episodeTitle">
+      <div class="episode-panel">
+        <div>
+          <p class="eyebrow">Guided episode</p>
+          <h2 id="episodeTitle">Run it like a field documentary</h2>
+          <p>Start with observation, reveal the science, test the maths model, then transfer the principle into engineering design.</p>
+        </div>
+        <div class="episode-actions">
+          <button class="button primary" id="episodeStart" type="button">Start with the osprey</button>
+          <button class="button subtle" id="episodePresenter" type="button">Open presenter mode</button>
+        </div>
+      </div>
     </section>
 
     <section id="modules" class="section gallery-section">
@@ -83,6 +108,7 @@
       <div class="viewer-bar">
         <button class="back-link" id="backToGallery" type="button">Back to gallery</button>
         <div class="viewer-nav">
+          <button id="viewerPresenter" type="button" aria-label="Open presenter mode">▣</button>
           <button id="prevModule" type="button" aria-label="Previous module">←</button>
           <button id="nextModule" type="button" aria-label="Next module">→</button>
         </div>
@@ -103,6 +129,22 @@
             </div>
           </div>
 
+          <section class="story-card" id="storyCard" aria-live="polite">
+            <div>
+              <p class="eyebrow">Field episode</p>
+              <h3 id="storyTitle">Observe the scene</h3>
+              <p id="storyPrompt"></p>
+            </div>
+            <div class="story-controls">
+              <ol class="story-steps" id="storySteps" aria-label="Episode progress"></ol>
+              <div class="story-buttons">
+                <button class="button subtle" id="storyPrev" type="button">Previous beat</button>
+                <button class="button primary" id="storyNext" type="button">Next reveal</button>
+                <button class="button subtle" id="storyExit" type="button">Exit episode</button>
+              </div>
+            </div>
+          </section>
+
           <div class="compare-grid">
             <figure class="compare-panel">
               <div class="panel-label">Original exhibition photo</div>
@@ -113,7 +155,7 @@
                 <button id="zoomOriginal" class="button subtle" type="button">Zoom</button>
               </div>
             </figure>
-            <figure class="compare-panel">
+            <figure class="compare-panel explainer-panel">
               <div class="panel-label" id="explainerPanelLabel">Secondary explainer</div>
               <img id="explainerImage" alt="" />
               <figcaption id="explainerCaption"></figcaption>
@@ -128,6 +170,24 @@
             <div class="field-note notes-card compact-card"><h3>Key ideas</h3><ul id="notesList"></ul></div>
             <div class="field-note prompt-card compact-card"><h3>Classroom prompts</h3><ol id="promptList"></ol></div>
           </div>
+
+          <section class="math-lab" id="mathLab">
+            <div class="math-lab-head">
+              <div>
+                <p class="eyebrow">Interactive maths lab</p>
+                <h3 id="labTitle"></h3>
+              </div>
+              <p id="labFormula"></p>
+            </div>
+            <div class="lab-grid">
+              <div id="labControls" class="lab-controls"></div>
+              <div class="lab-result">
+                <span id="labResultLabel"></span>
+                <strong id="labResult"></strong>
+                <p id="labInsight"></p>
+              </div>
+            </div>
+          </section>
         </div>
 
         <aside class="viewer-side">
@@ -157,6 +217,42 @@
       <img id="modalImage" alt="Large preview" />
     </div>
   </div>
+
+  <section id="presenter" class="presenter" hidden aria-live="polite" aria-label="Presenter mode">
+    <div class="presenter-stage">
+      <div class="presenter-media">
+        <img id="presenterImage" alt="" />
+      </div>
+      <div class="presenter-panel">
+        <p class="eyebrow" id="presenterStepLabel">Observe</p>
+        <h2 id="presenterTitle"></h2>
+        <p id="presenterPrompt"></p>
+        <div class="presenter-controls">
+          <button class="button subtle" id="presenterPrev" type="button">Previous</button>
+          <button class="button primary" id="presenterNext" type="button">Reveal</button>
+          <button class="button subtle" id="presenterClose" type="button">Exit</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <details class="improvement-log" id="improvementLog">
+    <summary>Updates</summary>
+    <div class="improvement-log-panel" role="region" aria-label="Improvement log">
+      <p class="eyebrow">Build log</p>
+      <h2>What changed from the original upload</h2>
+      <ol>
+        <li><strong>Visual direction:</strong> rebuilt the interface into a cinematic natural-history field atlas with animal-forward hero imagery and tighter editorial cards.</li>
+        <li><strong>Guided learning:</strong> added field episode mode: observe, decode, model, and transfer.</li>
+        <li><strong>Classroom use:</strong> added full-screen presenter mode for teacher-led reveals.</li>
+        <li><strong>Maths interaction:</strong> added one small interactive model for every wildlife module.</li>
+        <li><strong>Analytics:</strong> kept GoatCounter and added event tracking for meaningful interactions.</li>
+        <li><strong>Performance:</strong> added cleaned plate crops and WebP display assets while preserving original downloads.</li>
+        <li><strong>Publishing:</strong> added favicon, social preview, web manifest, sitemap, robots file, and custom 404 page.</li>
+        <li><strong>QA:</strong> tested desktop/mobile layout, image loading, story mode, presenter mode, search, zoom, dark mode, downloads, and GitHub Pages files.</li>
+      </ol>
+    </div>
+  </details>
 
   <footer class="site-footer"><p>Wildlife Science & Math Field Atlas · static site package</p></footer>
 

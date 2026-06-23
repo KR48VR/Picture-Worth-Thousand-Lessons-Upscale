@@ -17,7 +17,17 @@ This is a static website. It does not need a backend, database, or build step.
 4. Wait for GitHub to give you the Pages URL.
 
 ## Notes
-The infographic images are static PNGs. The surrounding interface is interactive: gallery, search, tabs, zoom, downloads, keyboard navigation, and teacher prompts.
+The infographic images are static JPEG/WebP assets. The surrounding interface is interactive: gallery, search, guided episode mode, presenter mode, tabs, zoom, downloads, keyboard navigation, teacher prompts, and per-module maths labs.
+
+## Version 2 additions
+
+- Guided field episode: observe → decode → model → transfer.
+- Full-screen presenter mode for classroom use.
+- Interactive maths labs for each wildlife module.
+- Compact Updates tab logging what changed from the original upload.
+- Cleaned plate crops for editorial cards, hero imagery, and presenter mode.
+- WebP display assets for faster rendering while preserving the original catalogue images for downloads/provenance.
+- GitHub Pages polish: favicon, web manifest, social preview image, robots.txt, sitemap.xml, and 404.html.
 
 ## Exhibition provenance update
 
@@ -28,6 +38,18 @@ The available Group A shortlist table does not provide shooting locations for th
 ## Analytics
 
 GoatCounter is included with site endpoint `https://kr48vr.goatcounter.com/count` via the standard `gc.zgo.at/count.js` script.
+
+The interface also sends lightweight GoatCounter events when available:
+
+- `module_open`
+- `story_start`, `story_step`, `story_exit`
+- `presenter_open`, `presenter_close`
+- `tab_secondary`, `tab_university`, `tab_engineering`
+- `math_lab_change`
+- `improvement_log_open`
+- `download_original`, `download_explainer`
+- `search`, `search_no_results`
+- `image_zoom`
 
 
 This light package compresses poster images as JPEG for easier GitHub browser upload and faster GitHub Pages loading.

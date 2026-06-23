@@ -1,0 +1,17 @@
+{
+  "name": "Wildlife Science & Math Field Atlas",
+  "short_name": "Wildlife Atlas",
+  "description": "A cinematic field atlas connecting wildlife photography, science, mathematics, and engineering design.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#eef0e9",
+  "theme_color": "#0b100d",
+  "icons": [
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
