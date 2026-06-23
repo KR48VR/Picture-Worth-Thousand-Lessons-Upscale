@@ -15,7 +15,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link rel="manifest" href="site.webmanifest" />
-  <link rel="stylesheet" href="styles.css?v=20260623-gallery-fade" />
+  <link rel="stylesheet" href="styles.css?v=20260623-gallery-cycle" />
   <script data-goatcounter="https://kr48vr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
@@ -94,7 +94,7 @@
       <div class="toolbar">
         <label class="search-wrap"><span>Find a concept</span><input id="searchInput" type="search" placeholder="friction, buoyancy, pressure, robot" /></label>
         <div class="view-chips" role="group" aria-label="Gallery explainer preview">
-          <button class="chip active" data-tab="secondary" type="button" aria-pressed="true">Secondary</button>
+          <button class="chip" data-tab="secondary" type="button" aria-pressed="false">Secondary</button>
           <button class="chip" data-tab="university" type="button" aria-pressed="false">University</button>
           <button class="chip" data-tab="engineering" type="button" aria-pressed="false">Nature → Design</button>
         </div>
@@ -250,7 +250,7 @@
         <li><strong>Layout polish:</strong> fixed presenter image fitting and moved Key Ideas plus Classroom Prompts into the detail-view teaching rail.</li>
         <li><strong>QA correction:</strong> presenter Observe mode now uses the full original photo, and module opens reset old story state.</li>
         <li><strong>Level clarity:</strong> added presenter level labels and standardized the design-transfer level as Nature → Design.</li>
-        <li><strong>Gallery previews:</strong> restored original-to-explainer crossfades, with Secondary, University, and Nature → Design tabs linked to the matching visuals and labels.</li>
+        <li><strong>Gallery previews:</strong> added an automatic Original → Secondary → University → Nature → Design crossfade, with the active gallery tab synchronized to the visible explainer.</li>
         <li><strong>GitHub refresh:</strong> versioned the stylesheet and scripts so deployed pages fetch the latest gallery fade behavior.</li>
         <li><strong>Maths interaction:</strong> added one small interactive model for every wildlife module.</li>
         <li><strong>Analytics:</strong> kept GoatCounter and added event tracking for meaningful interactions.</li>
@@ -263,7 +263,7 @@
 
   <footer class="site-footer"><p>Wildlife Science & Math Field Atlas · static site package</p></footer>
 
-  <script src="data.js?v=20260623-gallery-fade"></script>
-  <script src="script.js?v=20260623-gallery-fade"></script>
+  <script src="data.js?v=20260623-gallery-cycle"></script>
+  <script src="script.js?v=20260623-gallery-cycle"></script>
 </body>
 </html>

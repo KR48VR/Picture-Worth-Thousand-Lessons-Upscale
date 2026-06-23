@@ -170,6 +170,11 @@ const labs = {
 
 let currentModule = null;
 let currentTab = 'secondary';
+const galleryPhases = ['original', 'secondary', 'university', 'engineering'];
+const galleryPhaseDuration = 3600;
+let galleryPhase = 'original';
+let galleryCycleIndex = 0;
+let galleryCycleTimer = null;
 let currentStoryStep = 0;
 let storyActive = false;
 let presenterOpen = false;
@@ -267,8 +272,16 @@ function syncTabControls() {
     btn.classList.toggle('active', isActive);
     btn.setAttribute('aria-selected', String(isActive));
   });
+}
+
+function galleryPhaseLabel(phase) {
+  return phase === 'original' ? 'Original' : tabs[phase].label;
+}
+
+function syncGalleryControls() {
+  if (grid) grid.dataset.previewPhase = galleryPhase;
   document.querySelectorAll('.chip').forEach(btn => {
-    const isActive = btn.dataset.tab === currentTab;
+    const isActive = btn.dataset.tab === galleryPhase;
     btn.classList.toggle('active', isActive);
     btn.setAttribute('aria-pressed', String(isActive));
   });
@@ -277,15 +290,41 @@ function syncTabControls() {
 function setTab(tab, source = 'manual') {
   currentTab = tab;
   if (source === 'manual') storyActive = false;
-  renderGrid(searchInput.value);
   syncTabControls();
   updateViewer();
   trackEvent(`tab_${tab}`, { module: currentModuleData()?.id, tab });
 }
 
+function setGalleryPhase(phase, source = 'auto') {
+  if (!galleryPhases.includes(phase)) return;
+  galleryPhase = phase;
+  galleryCycleIndex = galleryPhases.indexOf(phase);
+  syncGalleryControls();
+  if (source === 'manual') {
+    restartGalleryCycle();
+    trackEvent('gallery_preview', { tab: phase });
+  }
+}
+
+function advanceGalleryPhase() {
+  const nextIndex = (galleryCycleIndex + 1) % galleryPhases.length;
+  setGalleryPhase(galleryPhases[nextIndex], 'auto');
+}
+
+function startGalleryCycle() {
+  if (galleryCycleTimer) clearInterval(galleryCycleTimer);
+  syncGalleryControls();
+  galleryCycleTimer = setInterval(advanceGalleryPhase, galleryPhaseDuration);
+}
+
+function restartGalleryCycle() {
+  startGalleryCycle();
+}
+
 function renderGrid(filter = '') {
   const q = filter.trim().toLowerCase();
   grid.innerHTML = '';
+  grid.dataset.previewPhase = galleryPhase;
   let matches = 0;
 
   MODULES.forEach((m, idx) => {
@@ -317,20 +356,22 @@ function renderGrid(filter = '') {
     article.setAttribute('aria-label', `Open ${m.title} module`);
 
     const badges = (m.keywords || []).slice(0, 4).map(k => `<span class="keyword">${escapeHtml(k)}</span>`).join('');
+    const previewLayers = galleryPhases.map(phase => {
+      const src = phase === 'original' ? plateImage(m) : webpImage(m.images[phase]);
+      const badgeClass = phase === 'original' ? 'thumb-badge-right' : 'thumb-badge-left';
+      return `
+        <div class="thumb-layer thumb-${escapeHtml(phase)}" data-preview-layer="${escapeHtml(phase)}">
+          <img src="${escapeHtml(src)}" alt="" loading="lazy" decoding="async">
+          <div class="thumb-gradient"></div>
+          <span class="thumb-badge ${badgeClass}">${escapeHtml(galleryPhaseLabel(phase))}</span>
+        </div>
+      `;
+    }).join('');
 
     article.innerHTML = `
       <div class="cover-frame">
         <div class="thumb-stage" aria-hidden="true">
-          <div class="thumb-layer thumb-base">
-            <img src="${escapeHtml(plateImage(m))}" alt="" loading="lazy" decoding="async">
-            <div class="thumb-gradient"></div>
-            <span class="thumb-badge thumb-badge-right">Original</span>
-          </div>
-          <div class="thumb-layer thumb-overlay">
-            <img src="${escapeHtml(webpImage(m.images[currentTab]))}" alt="" loading="lazy" decoding="async">
-            <div class="thumb-gradient"></div>
-            <span class="thumb-badge thumb-badge-left">${escapeHtml(tabs[currentTab].label)}</span>
-          </div>
+          ${previewLayers}
         </div>
       </div>
       <div class="module-card-body">
@@ -597,7 +638,7 @@ function closeModal() {
 }
 
 document.querySelectorAll('.chip').forEach(btn => {
-  btn.addEventListener('click', () => setTab(btn.dataset.tab));
+  btn.addEventListener('click', () => setGalleryPhase(btn.dataset.tab, 'manual'));
 });
 
 document.querySelectorAll('.viewer-tab').forEach(btn => {
@@ -702,3 +743,4 @@ themeToggle.addEventListener('click', () => {
 
 syncThemeToggle();
 renderGrid();
+startGalleryCycle();
