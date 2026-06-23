@@ -1,5 +1,7 @@
 window.goatcounter = window.goatcounter || {};
 
+const EXHIBITION_EBOOK_URL = 'https://drive.google.com/file/d/1CYTHABhqatGdLrQL0AwLvpyzdzzdnj3g/view';
+
 const tabs = {
   secondary: {
     label: 'Secondary',
@@ -319,16 +321,8 @@ function renderGrid(filter = '') {
     article.innerHTML = `
       <div class="cover-frame">
         <div class="thumb-stage" aria-hidden="true">
-          <div class="thumb-layer thumb-base">
-            <img src="${escapeHtml(plateImage(m))}" alt="" loading="lazy" decoding="async">
-            <div class="thumb-gradient"></div>
-            <div class="thumb-badge thumb-badge-right">Original</div>
-          </div>
-          <div class="thumb-layer thumb-overlay">
-            <img src="${escapeHtml(webpImage(m.images[currentTab]))}" alt="" loading="lazy" decoding="async">
-            <div class="thumb-gradient"></div>
-            <div class="thumb-badge thumb-badge-left">${escapeHtml(tabs[currentTab].label)}</div>
-          </div>
+          <img class="thumb-image" src="${escapeHtml(plateImage(m))}" alt="" loading="lazy" decoding="async">
+          <div class="thumb-gradient"></div>
         </div>
       </div>
       <div class="module-card-body">
@@ -382,11 +376,15 @@ function renderSourceCard(m) {
     </dl>
     <p class="source-note"><strong>Exhibition:</strong> ${escapeHtml(s.exhibitionName || '')}${s.exhibitionTheme ? ` - ${escapeHtml(s.exhibitionTheme)}` : ''}. ${escapeHtml(s.exhibitionDates || '')}</p>
     <p class="source-note"><strong>Location note:</strong> ${escapeHtml(s.locationNote || 'No separate shooting location was listed in the catalogue.')}</p>
-    <p class="source-note"><a class="source-link" href="${escapeHtml(s.sourceUrl || '#')}" target="_blank" rel="noopener">View source catalogue</a></p>
+    <p class="source-note source-links">
+      <a class="source-link" href="${escapeHtml(s.sourceUrl || '#')}" target="_blank" rel="noopener" data-source-link="catalogue">View source catalogue</a>
+      <a class="source-link" href="${escapeHtml(EXHIBITION_EBOOK_URL)}" target="_blank" rel="noopener" data-source-link="ebook">View exhibition e-book</a>
+    </p>
   `;
 
-  const sourceLink = sourceCard.querySelector('.source-link');
-  sourceLink?.addEventListener('click', () => trackEvent('source_catalogue_open', { module: m.id }));
+  sourceCard.querySelectorAll('[data-source-link]').forEach(link => {
+    link.addEventListener('click', () => trackEvent(`source_${link.dataset.sourceLink}_open`, { module: m.id }));
+  });
 }
 
 function renderStoryCard(m) {
