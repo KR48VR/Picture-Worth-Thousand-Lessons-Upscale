@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Wildlife Science & Math Field Atlas</title>
-  <meta name="description" content="A cinematic interactive field atlas connecting wildlife photography, science, mathematics, and engineering design." />
+  <meta name="description" content="A cinematic interactive field atlas connecting wildlife photography, science, mathematics, and design." />
   <meta name="theme-color" content="#0b100d" />
   <meta property="og:title" content="Wildlife Science & Math Field Atlas" />
-  <meta property="og:description" content="A cinematic field atlas connecting wildlife photography, science, mathematics, and engineering design." />
+  <meta property="og:description" content="A cinematic field atlas connecting wildlife photography, science, mathematics, and design." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="assets/social-preview.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -42,7 +42,7 @@
     <div class="hero-content wrap">
       <p class="eyebrow">Natural history learning atlas</p>
       <h1>Wildlife science, seen with cinematic clarity.</h1>
-      <p class="lede">Eight exhibition photographs become field studies in force, form, motion, adaptation, and engineered design.</p>
+      <p class="lede">Eight exhibition photographs become field studies in force, form, motion, adaptation, and nature-inspired design.</p>
       <div class="hero-buttons">
         <button class="button primary" id="storyStart" type="button">Begin field study</button>
         <a class="button glass" href="#modules">Browse gallery</a>
@@ -67,7 +67,7 @@
     <section class="pathway" aria-label="Learning pathway">
       <article class="path-step"><span>01</span><h2>Observe</h2><p>Begin with the catalogue photograph and the evidence visible in the scene.</p></article>
       <article class="path-step"><span>02</span><h2>Decode</h2><p>Compare each image with science and maths explainers at two levels.</p></article>
-      <article class="path-step"><span>03</span><h2>Transfer</h2><p>Follow the same natural principles into engineering and design systems.</p></article>
+      <article class="path-step"><span>03</span><h2>Transfer</h2><p>Follow the same natural principles into design systems.</p></article>
     </section>
 
     <section id="episode" class="section episode-section" aria-labelledby="episodeTitle">
@@ -75,7 +75,7 @@
         <div>
           <p class="eyebrow">Guided episode</p>
           <h2 id="episodeTitle">Run it like a field documentary</h2>
-          <p>Start with observation, reveal the science, test the maths model, then transfer the principle into engineering design.</p>
+          <p>Start with observation, reveal the science, test the maths model, then transfer the principle into nature-inspired design.</p>
         </div>
         <div class="episode-actions">
           <button class="button primary" id="episodeStart" type="button">Start with the osprey</button>
@@ -96,7 +96,7 @@
         <div class="view-chips" role="group" aria-label="Select gallery explainer view">
           <button class="chip active" data-tab="secondary" type="button" aria-pressed="true">Secondary</button>
           <button class="chip" data-tab="university" type="button" aria-pressed="false">University</button>
-          <button class="chip" data-tab="engineering" type="button" aria-pressed="false">Nature → Engineering</button>
+          <button class="chip" data-tab="engineering" type="button" aria-pressed="false">Nature → Design</button>
         </div>
       </div>
 
@@ -125,7 +125,7 @@
             <div class="tab-list" role="tablist" aria-label="Learning level tabs">
               <button class="viewer-tab active" id="tab-secondary" data-tab="secondary" role="tab" type="button" aria-selected="true">Secondary</button>
               <button class="viewer-tab" id="tab-university" data-tab="university" role="tab" type="button" aria-selected="false">University</button>
-              <button class="viewer-tab" id="tab-engineering" data-tab="engineering" role="tab" type="button" aria-selected="false">Nature → Engineering</button>
+              <button class="viewer-tab" id="tab-engineering" data-tab="engineering" role="tab" type="button" aria-selected="false">Nature → Design</button>
             </div>
           </div>
 
@@ -205,7 +205,7 @@
       <div class="guide-grid">
         <article class="guide-card"><h3>5 min · Notice</h3><p>Show the original photo and ask what is happening before revealing the annotated visual.</p></article>
         <article class="guide-card"><h3>10 min · Explain</h3><p>Compare the original and the selected explainer side by side, then identify which ideas became visible.</p></article>
-        <article class="guide-card"><h3>10 min · Transfer</h3><p>Use the Nature → Engineering mode to discuss how natural principles are translated into design.</p></article>
+        <article class="guide-card"><h3>10 min · Transfer</h3><p>Use the Nature → Design mode to discuss how natural principles are translated into design.</p></article>
         <article class="guide-card"><h3>Extension</h3><p>Invite students to build their own mini module from a new wildlife image using the same structure.</p></article>
       </div>
     </section>
@@ -219,13 +219,14 @@
     </div>
   </div>
 
-  <section id="presenter" class="presenter" hidden aria-live="polite" aria-label="Presenter mode">
+  <section id="presenter" class="presenter" hidden aria-live="polite" aria-label="Presenter mode" tabindex="-1">
     <div class="presenter-stage">
       <div class="presenter-media">
         <img id="presenterImage" alt="" />
       </div>
       <div class="presenter-panel">
         <p class="eyebrow" id="presenterStepLabel">Observe</p>
+        <p class="presenter-level" id="presenterLevel">Original photo</p>
         <h2 id="presenterTitle"></h2>
         <p id="presenterPrompt"></p>
         <div class="presenter-controls">
@@ -248,6 +249,8 @@
         <li><strong>Classroom use:</strong> added full-screen presenter mode for teacher-led reveals.</li>
         <li><strong>Layout polish:</strong> fixed presenter image fitting and moved Key Ideas plus Classroom Prompts into the detail-view teaching rail.</li>
         <li><strong>QA correction:</strong> presenter Observe mode now uses the full original photo, and module opens reset old story state.</li>
+        <li><strong>Level clarity:</strong> added presenter level labels and standardized the design-transfer level as Nature → Design.</li>
+        <li><strong>Gallery labels:</strong> linked Original and level badges to their matching preview image layers.</li>
         <li><strong>Maths interaction:</strong> added one small interactive model for every wildlife module.</li>
         <li><strong>Analytics:</strong> kept GoatCounter and added event tracking for meaningful interactions.</li>
         <li><strong>Performance:</strong> added cleaned plate crops and WebP display assets while preserving original downloads.</li>

@@ -12,9 +12,9 @@ const tabs = {
     caption: 'More rigorous modeling, equations, and quantitative reasoning.'
   },
   engineering: {
-    label: 'Nature → Engineering',
+    label: 'Nature → Design',
     sublabel: 'Design transfer',
-    caption: 'The same science and maths mapped to a useful engineered system.'
+    caption: 'The same science and maths mapped to a useful designed system.'
   }
 };
 
@@ -30,17 +30,17 @@ const prompts = {
     'What is one limitation of the model or equation shown in the explainer?'
   ],
   engineering: [
-    'Which natural principle transferred most directly into engineering?',
-    'What extra systems did engineers add, such as sensors, materials, control, or actuators?',
+    'Which natural principle transferred most directly into design?',
+    'What extra systems did designers add, such as sensors, materials, control, or actuators?',
     'Can you think of a different product or robot that could use the same principle?'
   ]
 };
 
 const storySteps = [
-  { key: 'observe', label: 'Observe', tab: 'secondary', title: 'Observe the scene' },
-  { key: 'decode', label: 'Decode', tab: 'secondary', title: 'Reveal the visible science' },
-  { key: 'model', label: 'Model', tab: 'university', title: 'Test a mathematical model' },
-  { key: 'transfer', label: 'Transfer', tab: 'engineering', title: 'Transfer the principle into design' }
+  { key: 'observe', label: 'Observe', tab: 'secondary', title: 'Observe the scene', level: 'Original photo', levelDetail: 'Look first' },
+  { key: 'decode', label: 'Decode', tab: 'secondary', title: 'Reveal the visible science', level: 'Secondary', levelDetail: '15-year-old level' },
+  { key: 'model', label: 'Model', tab: 'university', title: 'Test a mathematical model', level: 'University', levelDetail: 'Sophomore level' },
+  { key: 'transfer', label: 'Transfer', tab: 'engineering', title: 'Transfer the principle into design', level: 'Nature → Design', levelDetail: 'Design transfer' }
 ];
 
 const labs = {
@@ -209,6 +209,7 @@ const labInsight = document.getElementById('labInsight');
 const presenter = document.getElementById('presenter');
 const presenterImage = document.getElementById('presenterImage');
 const presenterStepLabel = document.getElementById('presenterStepLabel');
+const presenterLevel = document.getElementById('presenterLevel');
 const presenterTitle = document.getElementById('presenterTitle');
 const presenterPrompt = document.getElementById('presenterPrompt');
 const improvementLog = document.getElementById('improvementLog');
@@ -258,10 +259,24 @@ function storyPromptFor(m, stepIndex) {
   return (m.engineering || [])[0] || prompts.engineering[0];
 }
 
+function syncTabControls() {
+  document.querySelectorAll('.viewer-tab').forEach(btn => {
+    const isActive = btn.dataset.tab === currentTab;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-selected', String(isActive));
+  });
+  document.querySelectorAll('.chip').forEach(btn => {
+    const isActive = btn.dataset.tab === currentTab;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-pressed', String(isActive));
+  });
+}
+
 function setTab(tab, source = 'manual') {
   currentTab = tab;
   if (source === 'manual') storyActive = false;
   renderGrid(searchInput.value);
+  syncTabControls();
   updateViewer();
   trackEvent(`tab_${tab}`, { module: currentModuleData()?.id, tab });
 }
@@ -304,11 +319,16 @@ function renderGrid(filter = '') {
     article.innerHTML = `
       <div class="cover-frame">
         <div class="thumb-stage" aria-hidden="true">
-          <img class="thumb-base" src="${escapeHtml(plateImage(m))}" alt="" loading="lazy" decoding="async">
-          <img class="thumb-overlay" src="${escapeHtml(webpImage(m.images[currentTab]))}" alt="" loading="lazy" decoding="async">
-          <div class="thumb-gradient"></div>
-          <div class="thumb-badge thumb-badge-left">${escapeHtml(tabs[currentTab].label)}</div>
-          <div class="thumb-badge thumb-badge-right">Original</div>
+          <div class="thumb-layer thumb-base">
+            <img src="${escapeHtml(plateImage(m))}" alt="" loading="lazy" decoding="async">
+            <div class="thumb-gradient"></div>
+            <div class="thumb-badge thumb-badge-right">Original</div>
+          </div>
+          <div class="thumb-layer thumb-overlay">
+            <img src="${escapeHtml(webpImage(m.images[currentTab]))}" alt="" loading="lazy" decoding="async">
+            <div class="thumb-gradient"></div>
+            <div class="thumb-badge thumb-badge-left">${escapeHtml(tabs[currentTab].label)}</div>
+          </div>
         </div>
       </div>
       <div class="module-card-body">
@@ -430,16 +450,7 @@ function updateViewer() {
   moduleTagline.textContent = m.tagline;
   viewerCredit.textContent = sourceLine(m);
 
-  document.querySelectorAll('.viewer-tab').forEach(btn => {
-    const isActive = btn.dataset.tab === currentTab;
-    btn.classList.toggle('active', isActive);
-    btn.setAttribute('aria-selected', String(isActive));
-  });
-  document.querySelectorAll('.chip').forEach(btn => {
-    const isActive = btn.dataset.tab === currentTab;
-    btn.classList.toggle('active', isActive);
-    btn.setAttribute('aria-pressed', String(isActive));
-  });
+  syncTabControls();
 
   originalImage.src = webpImage(m.images.original);
   originalImage.alt = `Original photo: ${m.title}`;
@@ -532,6 +543,7 @@ function renderPresenter() {
   const m = currentModuleData() || MODULES[0];
   const step = storySteps[currentStoryStep];
   presenterStepLabel.textContent = step.label;
+  presenterLevel.textContent = `${step.level} · ${step.levelDetail}`;
   presenterTitle.textContent = m.title;
   presenterPrompt.textContent = storyPromptFor(m, currentStoryStep);
   presenterImage.src = presenterImageFor(m);
@@ -550,7 +562,7 @@ function openPresenter() {
   presenter.hidden = false;
   document.body.classList.add('presenter-open');
   updateViewer();
-  document.getElementById('presenterNext').focus();
+  presenter.focus({ preventScroll: true });
   trackEvent('presenter_open', { module: currentModuleData()?.id, step: storySteps[currentStoryStep].key });
 }
 
